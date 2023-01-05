@@ -57,8 +57,9 @@ class BookingService {
                 const userId = data.userId;
                 const getUserEmailURL = `http://localhost:3001/api/v1/users/${userId}`;
                 const user = await axios.get(getUserEmailURL);
-                console.log('user is here' , user.data);
-                const userEmail = user.email;
+                
+                const userEmail = user.data.data.email;
+              
                 
                 /*
                 Request to {ReminderService} for creating notification_reminder so as to send email notification before 12 hours from flight departure 
@@ -73,7 +74,7 @@ class BookingService {
                     status : 'PENDING' , 
                     notificationTime : '2023-01-04T18:47:52.311Z'
                 })
-                console.log('reminder is here' , reminder);
+                
                 return booking;
 
             } catch (error) {
