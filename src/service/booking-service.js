@@ -3,6 +3,7 @@ const axios = require('axios');
 const {FLIGHT_SERVICE_PATH , REMINDER_SERVICE_PATH} = require('../config/serverConfig');
 const {BookingRepository} = require('../repository/index');
 const { ServiceError } = require('../utils/error/index');
+const {dateObjectManuplation} = require('../utils/DateObjectManuplation');
 
 class BookingService {
         constructor(){
@@ -65,16 +66,19 @@ class BookingService {
                 Request to {ReminderService} for creating notification_reminder so as to send email notification before 12 hours from flight departure 
                 */
                 const postReminderServiceURL = `${REMINDER_SERVICE_PATH}/api/v1/tickets`; 
-                console.log("reminder url " , postReminderServiceURL);
-                // const departureTime = flightData.departureTime;
+                const departureTime = flightData.departureTime;
+                    /*
+                    dateObject that will be sended to reminder service for prior ( 12 hours )notification email 
+                    */
+                const reminderDateObj = dateObjectManuplation(new Date(departureTime) , 12);
                 const reminder = await axios.post(postReminderServiceURL,{
                     subject : 'flight Alert Reminder',
                     content : 'reminder',
                     recipientEmail : userEmail,
                     status : 'PENDING' , 
-                    notificationTime : '2023-01-04T18:47:52.311Z'
+                    notificationTime : reminderDateObj
                 })
-                
+
                 return booking;
 
             } catch (error) {
