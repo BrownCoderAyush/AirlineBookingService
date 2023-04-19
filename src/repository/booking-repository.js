@@ -13,7 +13,7 @@ class BookingRepository{
                 if(error.name == 'SequelizeValidationError'){
                     throw new ValidationError(error);
                 }
-                throw AppError(
+                throw new AppError(
                     'RepositoryError',
                     'Cannot create Booking',
                     'There was some issue creating the booking, please try again later',

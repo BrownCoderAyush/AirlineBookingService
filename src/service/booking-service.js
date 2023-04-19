@@ -12,14 +12,14 @@ class BookingService {
 
         async createBooking(data){
             try {
-
+                console.log(data);
                 /*
                 Getting flight data from {flightsAndSearch} Service based on flightId received from client-end  
                 */
                 const flightId = data.flightId; 
                 let getFlightRequestURL = `${FLIGHT_SERVICE_PATH}/api/v1/flights/${flightId}`;
                 const flight = await axios.get(getFlightRequestURL);
- 
+                console.log("flight details",flight);
                 /*
                 labeling required information from flight detail
                 */
