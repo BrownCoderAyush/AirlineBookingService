@@ -13,6 +13,7 @@ class BookingController{
     async sendMessageToQueue(req,res){
         try {   
             const channel = await createChannel();
+            // demo request 
             const payload = { 
 
                 data : {
@@ -27,7 +28,6 @@ class BookingController{
 
                 
             }; 
-
             publishMessage(channel , REMINDER_BINDING_KEY , JSON.stringify(payload));
             return res.status(200).json({
                 message : 'Succesfully published the event'
@@ -36,6 +36,7 @@ class BookingController{
             throw error ; 
         }
     }
+
     async create(req,res){
         try {
             const  response  = await bookingService.createBooking(req.body);
@@ -54,24 +55,8 @@ class BookingController{
             })
         }
     } 
+    
 }
-// const create=async(req,res)=>{
-//     try {
-//         const  response = await bookingService.createBooking(req.body);
-//         return res.status(StatusCodes.OK).json({
-//             message: 'Successfully created booking',
-//             success: true,
-//             err: {},
-//             data: response
-//         })
-//     } catch (error) {
-//         return res.status(error.statusCode).json({
-//             message: error.message,
-//             success: false,
-//             err: error.explanation,
-//             data: {}
-//         })
-//     }
-// }
+
 
 module.exports = BookingController
