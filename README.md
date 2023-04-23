@@ -31,3 +31,95 @@ MESSAGE_BROKER_URL='amqp://localhost'
 
 - Once you've added your db config as listed above, go to the src folder from your terminal and execute `npx sequelize db:create`
 and then execute `npx sequelize db:migrate`
+
+---
+
+# API
+
+## Booking Model 
+
+- Schema example 
+
+```
+  {
+        "id": 12,
+        "flightId": "1",
+        "noOfSeats": "3",
+        "userId": "2",
+        "totalCost": 7200,
+        "status": "Booked",
+        "updatedAt": "2023-04-23T06:00:11.774Z",
+        "createdAt": "2023-04-23T06:00:11.774Z"
+    }
+
+```
+
+---
+
+**Desc**: Create Booking 
+
+**Route** : `/bookings`
+
+**Method**: `POST`
+
+**Body** : 
+
+```
+{
+
+    "flightId" : 1 , 
+    "noOfSeats" : 3 , 
+    "userId" : 2
+
+}
+  
+```
+
+**Response** : 
+
+```
+{
+    "message": "Successfully created booking",
+    "success": true,
+    "err": {},
+    "data": {
+        "id": 12,
+        "flightId": "1",
+        "noOfSeats": "3",
+        "userId": "2",
+        "totalCost": 7200,
+        "status": "Booked",
+        "updatedAt": "2023-04-23T06:00:11.774Z",
+        "createdAt": "2023-04-23T06:00:11.774Z"
+    }
+}
+```
+---
+
+**Desc**: Publish Message 
+
+**Route** : `/publish`
+
+**Method**: `POST`
+
+**Body** : 
+
+```
+{
+    "subject" : 'this is a noti from queue',
+    "content" : 'Queue will subscribe to msg',
+    "recipientEmail" :  'ayushplayssoft@gmail.com',
+    "notificationTime" : '2023-01-03 13:44:07',
+    "status" : 'PENDING'
+}
+  
+```
+
+**Response** : 
+
+```
+{
+  "message" : 'Succesfully published the event'
+}
+```
+
